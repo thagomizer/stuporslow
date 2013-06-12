@@ -1,4 +1,10 @@
 StuporSlow::Application.routes.draw do
+  resources :exercises
+
+
+  resources :athletes
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

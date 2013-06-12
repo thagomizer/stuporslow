@@ -1,0 +1,10 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  first_name: FirstOne
+  last_name: LastOne
+
+two:
+  first_name: FirstTwo
+  last_name: LastTwo
