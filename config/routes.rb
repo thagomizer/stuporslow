@@ -1,4 +1,7 @@
 StuporSlow::Application.routes.draw do
+  resources :workouts
+
+
   resources :lifts
 
 

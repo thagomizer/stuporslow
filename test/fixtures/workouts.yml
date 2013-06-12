@@ -1,0 +1,12 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  notes: MyText
+  date: 2013-06-11 20:33:21
+  athlete_id: 1
+
+two:
+  notes: MyText
+  date: 2013-06-11 20:33:21
+  athlete_id: 1
