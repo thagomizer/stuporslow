@@ -3,7 +3,7 @@ require "test_helper"
 class ExercisesControllerTest < ActionController::TestCase
 
   before do
-    @exercise = exercises(:one)
+    @exercise = create_exercise
   end
 
   def test_index

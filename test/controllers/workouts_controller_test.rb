@@ -3,7 +3,7 @@ require "test_helper"
 class WorkoutsControllerTest < ActionController::TestCase
 
   before do
-    @workout = workouts(:one)
+    @workout = create_workout
   end
 
   def test_index
@@ -18,8 +18,8 @@ class WorkoutsControllerTest < ActionController::TestCase
   end
 
   def test_create
-    assert_difference('Workout.count') do
-      post :create, workout: {  }
+    assert_difference('Workout.count', 1) do
+      post :create, :workout => {"date(1i)"=>"2013", "date(2i)"=>"6", "date(3i)"=>"16", "notes"=>"Testing"}
     end
 
     assert_redirected_to workout_path(assigns(:workout))

@@ -18,7 +18,23 @@ class ActiveSupport::TestCase
                                     :password   => "password")
   end
 
-#  fixtures :all
+  def create_workout(date = Time.now, notes = "")
+    Workout.create!(:date => date, :notes => notes)
+  end
 
-  # Add more helper methods to be used by all tests here...
+  def create_exercise
+    Exercise.find_or_create_by_name(:name => "Compound Row")
+  end
+
+  def create_goal(exercise = nil, athlete = nil, time = 90)
+    exercise ||= create_exercise
+    athlete  ||= create_athlete
+    Goal.create!(:exercise => exercise, :athlete => athlete, :time => time)
+  end
+
+  def create_lift(workout = nil, exercise = nil)
+    workout  ||= create_workout
+    exercise ||= create_exercise
+    Lift.create!(:workout => workout, :exercise => exercise)
+  end
 end

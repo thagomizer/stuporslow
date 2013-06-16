@@ -1,9 +1,8 @@
 require "test_helper"
 
 class AthletesControllerTest < ActionController::TestCase
-
   before do
-    @athlete = athletes(:one)
+    @athlete = create_athlete
   end
 
   def test_index
@@ -18,8 +17,11 @@ class AthletesControllerTest < ActionController::TestCase
   end
 
   def test_create
-    assert_difference('Athlete.count') do
-      post :create, athlete: {  }
+    assert_difference('Athlete.count', 1) do
+      post :create, :athlete => { :first_name => "Mike",
+                                  :last_name  => "Smith",
+                                  :email      => "mike@example.com",
+                                  :password   => "password"}
     end
 
     assert_redirected_to athlete_path(assigns(:athlete))

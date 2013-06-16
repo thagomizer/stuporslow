@@ -4,7 +4,9 @@
 one:
   first_name: FirstOne
   last_name: LastOne
+  email: one@example.com
 
 two:
   first_name: FirstTwo
   last_name: LastTwo
+  email: two@example.com

@@ -3,7 +3,7 @@ require "test_helper"
 class GoalsControllerTest < ActionController::TestCase
 
   before do
-    @goal = goals(:one)
+    @goal = create_goal
   end
 
   def test_index

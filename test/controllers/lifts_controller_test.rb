@@ -3,7 +3,7 @@ require "test_helper"
 class LiftsControllerTest < ActionController::TestCase
 
   before do
-    @lift = lifts(:one)
+    @lift = create_lift
   end
 
   def test_index
