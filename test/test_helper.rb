@@ -8,11 +8,17 @@ require "minitest/rails"
 # require "minitest/rails/capybara"
 
 # Uncomment for awesome colorful output
-# require "minitest/pride"
+require "minitest/pride"
 
 class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
-  fixtures :all
+  def create_athlete(first_name = "Fred", last_name = "Rogers")
+    Athlete.find_or_create_by_email(:first_name => first_name,
+                                    :last_name  => last_name,
+                                    :email      => "#{first_name}@example.com",
+                                    :password   => "password")
+  end
+
+#  fixtures :all
 
   # Add more helper methods to be used by all tests here...
 end

@@ -3,8 +3,9 @@ require "test_helper"
 class LiftTest < ActiveSupport::TestCase
   def test_creation
     exercise = Exercise.find_or_create_by_name(:name => "Exercise1")
-    athlete = Athlete.create!(:first_name => "Fred",
-                               :last_name => "Rogers")
+
+    athlete = create_athlete
+
     workout = Workout.create!(:date => Time.now,
                               :notes => "",
                               :athlete => athlete)

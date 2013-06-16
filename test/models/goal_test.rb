@@ -3,7 +3,7 @@ require "test_helper"
 class GoalTest < ActiveSupport::TestCase
   def test_goal_creation
     exercise = Exercise.create!(:name => "Compound Row")
-    athlete = Athlete.create!(:first_name => "Aja", :last_name => "Hammerly")
+    athlete = create_athlete
 
     goal = Goal.new(:exercise => exercise, :athlete => athlete, :time => 60)
     assert goal.save

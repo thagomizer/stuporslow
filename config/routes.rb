@@ -1,4 +1,7 @@
 StuporSlow::Application.routes.draw do
+
+  devise_for :athletes
+
   resources :goals
 
 

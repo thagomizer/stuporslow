@@ -2,7 +2,7 @@ require "test_helper"
 
 class WorkoutTest < ActiveSupport::TestCase
   def test_creation
-    athlete = Athlete.create!(:first_name => "Fred", :last_name => "Rogers")
+    athlete = create_athlete
 
     workout = Workout.new( :notes   => "Test Notes",
                            :date    => Time.now,
