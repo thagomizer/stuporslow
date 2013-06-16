@@ -1,4 +1,5 @@
 StuporSlow::Application.routes.draw do
+  root :to => 'workouts#index'
 
   devise_for :athletes
 
