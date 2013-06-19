@@ -1,4 +1,6 @@
 class WorkoutsController < ApplicationController
+  before_filter :authenticate_athlete!
+
   # GET /workouts
   # GET /workouts.json
   def index

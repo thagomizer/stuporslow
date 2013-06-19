@@ -3,6 +3,7 @@ require "test_helper"
 class AthletesControllerTest < ActionController::TestCase
   before do
     @athlete = create_athlete
+    sign_in @athlete
   end
 
   def test_index

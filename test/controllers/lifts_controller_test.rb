@@ -3,6 +3,7 @@ require "test_helper"
 class LiftsControllerTest < ActionController::TestCase
 
   before do
+    sign_in_fred
     @lift = create_lift
   end
 

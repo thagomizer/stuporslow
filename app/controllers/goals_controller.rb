@@ -1,4 +1,6 @@
 class GoalsController < ApplicationController
+  before_filter :authenticate_athlete!
+
   # GET /goals
   # GET /goals.json
   def index

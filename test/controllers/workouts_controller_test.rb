@@ -3,6 +3,7 @@ require "test_helper"
 class WorkoutsControllerTest < ActionController::TestCase
 
   before do
+    sign_in_fred
     @workout = create_workout
   end
 
@@ -23,6 +24,8 @@ class WorkoutsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to workout_path(assigns(:workout))
+
+    new_workout = Workout.last
   end
 
   def test_show

@@ -3,6 +3,7 @@ require "test_helper"
 class GoalsControllerTest < ActionController::TestCase
 
   before do
+    sign_in_fred
     @goal = create_goal
   end
 

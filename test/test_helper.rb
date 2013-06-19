@@ -37,4 +37,13 @@ class ActiveSupport::TestCase
     exercise ||= create_exercise
     Lift.create!(:workout => workout, :exercise => exercise)
   end
+
+  def sign_in_fred
+    @fred = create_athlete
+    sign_in @fred
+  end
+end
+
+class ActionController::TestCase
+  include Devise::TestHelpers
 end

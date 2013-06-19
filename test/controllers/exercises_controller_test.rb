@@ -4,6 +4,8 @@ class ExercisesControllerTest < ActionController::TestCase
 
   before do
     @exercise = create_exercise
+
+    sign_in_fred
   end
 
   def test_index
