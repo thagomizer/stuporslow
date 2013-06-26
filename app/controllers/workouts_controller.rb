@@ -27,6 +27,12 @@ class WorkoutsController < ApplicationController
   # GET /workouts/new.json
   def new
     @workout = Workout.new
+    @workout.lifts = []
+    @workout.athlete = current_athlete
+
+    6.times do
+      @workout.lifts << Lift.new(:workout => @workout)
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,6 +49,8 @@ class WorkoutsController < ApplicationController
   # POST /workouts.json
   def create
     @workout = Workout.new(params[:workout])
+
+    @workout.athlete ||= current_athlete
 
     respond_to do |format|
       if @workout.save

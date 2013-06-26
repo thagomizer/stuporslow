@@ -5,7 +5,6 @@ StuporSlow::Application.routes.draw do
 
   resources :goals
   resources :workouts
-  resources :lifts
   resources :exercises
   resources :athletes
 

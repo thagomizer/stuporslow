@@ -1,19 +1,33 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <b>Date:</b>
+  <%= @workout.date.strftime("%b %-d %Y") %>
+</p>
+
+<table>
+  <tr>
+    <th>Exercise</th>
+    <th>Weight (lbs)</th>
+    <th>Time (secs)</th>
+    <th>Notes</th>
+  </tr>
+  <% @workout.lifts.each do |lift| %>
+    <tr>
+      <td><%= lift.exercise.name %></td>
+      <td><%= lift.weight %></td>
+      <td><%= lift.time %></td>
+      <td><%= lift.notes %></td>
+    </tr>
+  <% end %>
+</table>
+
+
+<p>
   <b>Notes:</b>
   <%= @workout.notes %>
 </p>
 
-<p>
-  <b>Date:</b>
-  <%= @workout.date %>
-</p>
-
-<p>
-  <b>Athlete:</b>
-  <%= @workout.athlete_id %>
-</p>
 
 
 <%= link_to 'Edit', edit_workout_path(@workout) %> |

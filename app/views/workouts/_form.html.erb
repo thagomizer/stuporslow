@@ -1,4 +1,4 @@
-<%= form_for(@workout) do |f| %>
+<%= form_for(@workout) do |workout_form| %>
   <% if @workout.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@workout.errors.count, "error") %> prohibited this workout from being saved:</h2>
@@ -11,14 +11,30 @@
     </div>
   <% end %>
   <div class="field">
-    <%= f.label :date %><br />
-    <%= f.date_select :date %>
+    <%= workout_form.label :date %><br />
+    <%= workout_form.date_select :date %>
+  </div>
+  <div class="lifts">
+    <% @workout.lifts.each do |lift| %>
+      <%= fields_for lift do |lift_form| -%>
+        <div class="field">
+          <%= lift_form.label :exercise %>
+          <%= lift_form.collection_select :exercise_id, Exercise.order(:name),:id, :name, :include_blank => false %> 
+          <%= lift_form.label :weight %>
+          <%= lift_form.number_field :weight %>
+          <%= lift_form.label :time %>
+          <%= lift_form.number_field :time %>
+          <%= lift_form.label :notes %>
+          <%= lift_form.text_field :notes %><br/>
+        </div>
+      <% end %>
+    <% end %>
   </div>
   <div class="field">
-    <%= f.label :notes %><br />
-    <%= f.text_area :notes %>
+    <%= workout_form.label :notes %><br />
+    <%= workout_form.text_area :notes %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= workout_form.submit %>
   </div>
 <% end %>

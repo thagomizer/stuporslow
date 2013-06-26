@@ -10,12 +10,16 @@ class WorkoutsControllerTest < ActionController::TestCase
   def test_index
     get :index
     assert_response :success
-    assert_not_nil assigns(:workouts)
+    refute_nil assigns(:workouts)
   end
 
   def test_new
     get :new
     assert_response :success
+
+    workout = assigns(:workout)
+    refute_nil workout
+    assert_equal 6, workout.lifts.length
   end
 
   def test_create
@@ -26,6 +30,8 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_redirected_to workout_path(assigns(:workout))
 
     new_workout = Workout.last
+
+    assert_equal @fred.email, new_workout.athlete.email
   end
 
   def test_show

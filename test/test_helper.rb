@@ -19,7 +19,8 @@ class ActiveSupport::TestCase
   end
 
   def create_workout(date = Time.now, notes = "")
-    Workout.create!(:date => date, :notes => notes)
+    @fred = create_athlete
+    Workout.create!(:date => date, :notes => notes, :athlete => @fred)
   end
 
   def create_exercise
