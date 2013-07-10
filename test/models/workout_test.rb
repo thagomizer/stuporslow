@@ -32,5 +32,8 @@ class WorkoutTest < ActiveSupport::TestCase
 
     l = Lift.last
     assert_equal workout, l.workout
+    assert_equal exercise.id, l.exercise_id
+    assert_equal 100, l.time
+    assert_equal 50, l.weight
   end
 end
