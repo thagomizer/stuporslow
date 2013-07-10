@@ -12,22 +12,25 @@
   <% end %>
   <div class="field">
     <%= workout_form.label :date %><br />
-    <%= workout_form.date_select :date %>
+    <%= workout_form.date_select :date, {:order => [:month, :day, :year]} %>
   </div>
   <div class="lifts">
-    <% @workout.lifts.each do |lift| %>
-      <%= fields_for lift do |lift_form| -%>
-        <div class="field">
-          <%= lift_form.label :exercise %>
-          <%= lift_form.collection_select :exercise_id, Exercise.order(:name),:id, :name, :include_blank => false %> 
-          <%= lift_form.label :weight %>
-          <%= lift_form.number_field :weight %>
-          <%= lift_form.label :time %>
-          <%= lift_form.number_field :time %>
-          <%= lift_form.label :notes %>
-          <%= lift_form.text_field :notes %><br/>
-        </div>
-      <% end %>
+    <% unless @workout.lifts.any? %>
+    No lifts recorded for this workout.
+    <p/>
+    <% end %>
+
+    <%= workout_form.fields_for :lifts do |lift_form| -%>
+      <div class="field lift-row">
+        <%= lift_form.label :exercise %>
+        <%= lift_form.select(:exercise_id, Exercise.order(:name).collect {|e| [ e.name, e.id ] }) %>
+        <%= lift_form.label :weight %>
+        <%= lift_form.number_field :weight %>
+        <%= lift_form.label :time %>
+        <%= lift_form.number_field :time %>
+        <%= lift_form.label :notes %>
+        <%= lift_form.text_field :notes %><br/>
+      </div>
     <% end %>
   </div>
   <div class="field">

@@ -14,10 +14,10 @@
   </tr>
   <% @workout.lifts.each do |lift| %>
     <tr>
-      <td><%= lift.exercise.name %></td>
-      <td><%= lift.weight %></td>
-      <td><%= lift.time %></td>
-      <td><%= lift.notes %></td>
+      <td class="lift-exercise-name"><%= lift.exercise.name %></td>
+      <td class="lift-weight"><%= lift.weight %></td>
+      <td class="lift-time"><%= lift.time %></td>
+      <td class="lift-notes"><%= lift.notes %></td>
     </tr>
   <% end %>
 </table>

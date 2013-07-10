@@ -36,7 +36,10 @@ class ActiveSupport::TestCase
   def create_lift(workout = nil, exercise = nil)
     workout  ||= create_workout
     exercise ||= create_exercise
-    Lift.create!(:workout => workout, :exercise => exercise)
+    Lift.create!( :workout  => workout,
+                  :exercise => exercise,
+                  :weight   => 100,
+                  :time     => 100)
   end
 
   def sign_in_fred
