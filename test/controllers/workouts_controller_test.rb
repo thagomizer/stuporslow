@@ -88,11 +88,13 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_equal @fred, new_workout.athlete
   end
 
+  # update
   def test_update
     put :update, id: @workout, workout: {  }
     assert_redirected_to workout_path(assigns(:workout))
   end
 
+  # destroy
   def test_destroy
     assert_difference('Workout.count', -1) do
       delete :destroy, id: @workout
