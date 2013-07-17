@@ -29,8 +29,7 @@ class ActiveSupport::TestCase
 
   def create_goal(exercise = nil, athlete = nil, time = 90)
     exercise ||= create_exercise
-    athlete  ||= create_athlete
-    Goal.create!(:exercise => exercise, :athlete => athlete, :time => time)
+    Goal.create!(:exercise => exercise, :time => time)
   end
 
   def create_lift(workout = nil, exercise = nil)

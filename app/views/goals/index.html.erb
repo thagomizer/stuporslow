@@ -3,7 +3,6 @@
 <table>
   <tr>
     <th>Exercise</th>
-    <th>Athlete</th>
     <th>Time</th>
     <th></th>
     <th></th>
@@ -13,7 +12,6 @@
 <% @goals.each do |goal| %>
   <tr>
     <td><%= goal.exercise_id %></td>
-    <td><%= goal.athlete_id %></td>
     <td><%= goal.time %></td>
     <td><%= link_to 'Show', goal %></td>
     <td><%= link_to 'Edit', edit_goal_path(goal) %></td>
