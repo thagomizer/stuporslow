@@ -8,7 +8,7 @@ class Athlete < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   has_many :workouts
-  has_many :goals
+  has_many :workout_templates
 
   attr_accessible :first_name, :last_name
 end
