@@ -12,15 +12,15 @@ require "minitest/pride"
 
 class ActiveSupport::TestCase
   def create_athlete(first_name = "Fred", last_name = "Rogers")
-    Athlete.find_or_create_by_email(:first_name => first_name,
-                                    :last_name  => last_name,
-                                    :email      => "#{first_name}@example.com",
-                                    :password   => "password")
+    email = "#{first_name}@example.com".downcase
+
+    Athlete.find_or_create_by_email(:email    => email,
+                                    :password => "password")
   end
 
   def create_workout(date = Time.now, notes = "")
-    @fred = create_athlete
-    Workout.create!(:date => date, :notes => notes, :athlete => @fred)
+    fred = create_athlete
+    Workout.create!(:date => date, :notes => notes, :athlete => fred)
   end
 
   def create_exercise
@@ -43,8 +43,9 @@ class ActiveSupport::TestCase
   end
 
   def sign_in_fred
-    @fred = create_athlete
-    sign_in @fred
+    fred = create_athlete
+    fred.persisted?
+    sign_in fred
   end
 end
 

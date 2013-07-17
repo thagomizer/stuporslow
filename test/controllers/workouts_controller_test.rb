@@ -1,11 +1,14 @@
-require "test_helper"
+require File.expand_path("../../test_helper", __FILE__)
 
 class WorkoutsControllerTest < ActionController::TestCase
 
-  before do
-    sign_in_fred
-    @workout = create_workout
+  def setup
+    @fred     = create_athlete
+    @exercise = create_exercise
+    @workout  = create_workout
     create_lift(@workout)
+
+    sign_in @fred
   end
 
   # index
@@ -50,7 +53,7 @@ class WorkoutsControllerTest < ActionController::TestCase
 
     assert_select 'div.lift-row', 6
 
-    0.upto(5) do |x|
+    6.times do |x|
       assert_select "#workout_lifts_attributes_#{x}_exercise_id"
       assert_select "#workout_lifts_attributes_#{x}_weight"
       assert_select "#workout_lifts_attributes_#{x}_time"
@@ -58,22 +61,31 @@ class WorkoutsControllerTest < ActionController::TestCase
     end
   end
 
+  # edit TODO
+  def test_edit
+    get :edit, id: @workout
+    assert_response :success
+  end
+
   # create
   def test_create
     assert_difference('Workout.count', 1) do
-      post :create, :workout => {"date(1i)"=>"2013", "date(2i)"=>"6", "date(3i)"=>"16", "notes"=>"Testing"}
+      post :create, :workout => {"date(1i)"         => "2013",
+                                 "date(2i)"         => "6",
+                                 "date(3i)"         => "16",
+                                 "notes"            => "Testing",
+                                 "lifts_attributes" => {"0" =>
+                                   {"exercise_id" => @exercise.id,
+                                    "weight"      => 150,
+                                    "time"        => 100,
+                                    "notes"       => "My notes"}}}
     end
 
     assert_redirected_to workout_path(assigns(:workout))
 
     new_workout = Workout.last
 
-    assert_equal @fred.email, new_workout.athlete.email
-  end
-
-  def test_edit
-    get :edit, id: @workout
-    assert_response :success
+    assert_equal @fred, new_workout.athlete
   end
 
   def test_update
