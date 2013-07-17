@@ -1,3 +1,4 @@
 Add test for creation failure
 Don't save a lift if there's no weight or time
+Fix up goal controller tests
 
