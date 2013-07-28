@@ -16,5 +16,13 @@ class WorkoutTemplateTest < ActiveSupport::TestCase
     template.goals = [goal1, goal2]
 
     assert template.save
+
+    template.reload
+
+    assert_equal athlete, template.athlete
+    assert_equal 2, template.goals.count
+
+    assert_equal goal1, template.goals[0]
+    assert_equal goal2, template.goals[1]
   end
 end

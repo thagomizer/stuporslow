@@ -1,4 +1,12 @@
-Add test for creation failure
+Add test for workout creation failure
 Don't save a lift if there's no weight or time
 Fix up goal controller tests
+Remove CRUD on athletes outside of devise
+Review all controller tests
+Clean up helper tests
+Put bootstrap
+Remove lifts and goals routing
+Restrict views to just my stuff
+Add better table views for workouts and workout_templates
+Add ajax to add more rows to workout and template entries
 

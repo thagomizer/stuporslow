@@ -2,20 +2,36 @@ require "test_helper"
 
 class WorkoutTemplatesControllerTest < ActionController::TestCase
 
-  # before do
-  #   @workout_template = workout_templates(:one)
-  # end
+  def setup
+    athlete = create_athlete
+    @workout_template = WorkoutTemplate.create!(:name    => "My Template",
+                                                :athlete => athlete)
 
-  # def test_index
-  #   get :index
-  #   assert_response :success
-  #   assert_not_nil assigns(:workout_templates)
-  # end
+    Goal.create!(:workout_template => @workout_template,
+                 :exercise         => create_exercise,
+                 :time             => 90)
+  end
 
-  # def test_new
-  #   get :new
-  #   assert_response :success
-  # end
+  def test_index
+    get :index
+    assert_response :success
+    assert_not_nil assigns(:workout_templates)
+  end
+
+  def test_new
+    get :new
+
+    template = assigns(:workout_template)
+    refute_nil template
+    assert_equal 1, template.goals.count
+
+    assert_select "#workout_template_name"
+
+    # Should not have field for athlete
+    # Should have table of up to
+
+    assert_response :success
+  end
 
   # def test_create
   #   assert_difference('WorkoutTemplate.count') do

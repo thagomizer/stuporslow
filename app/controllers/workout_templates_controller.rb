@@ -1,17 +1,28 @@
 class WorkoutTemplatesController < ApplicationController
-  # # GET /workout_templates
-  # # GET /workout_templates.json
-  # def index
-  #   @workout_templates = WorkoutTemplate.all
+  def index
+    @workout_templates = WorkoutTemplate.all
 
-  #   respond_to do |format|
-  #     format.html # index.html.erb
-  #     format.json { render json: @workout_templates }
-  #   end
-  # end
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @workout_templates }
+    end
+  end
 
-  # # GET /workout_templates/1
-  # # GET /workout_templates/1.json
+  def new
+    @workout_template         = WorkoutTemplate.new
+    @workout_template.goals   = []
+    @workout_template.athlete = current_athlete
+
+    6.times do
+      @workout.goal << Goal.new(:workout_template => @workout_template)
+    end
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @workout_template }
+    end
+  end
+
   # def show
   #   @workout_template = WorkoutTemplate.find(params[:id])
 
@@ -21,24 +32,11 @@ class WorkoutTemplatesController < ApplicationController
   #   end
   # end
 
-  # # GET /workout_templates/new
-  # # GET /workout_templates/new.json
-  # def new
-  #   @workout_template = WorkoutTemplate.new
 
-  #   respond_to do |format|
-  #     format.html # new.html.erb
-  #     format.json { render json: @workout_template }
-  #   end
-  # end
-
-  # # GET /workout_templates/1/edit
   # def edit
   #   @workout_template = WorkoutTemplate.find(params[:id])
   # end
 
-  # # POST /workout_templates
-  # # POST /workout_templates.json
   # def create
   #   @workout_template = WorkoutTemplate.new(params[:workout_template])
 

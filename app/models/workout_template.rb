@@ -1,5 +1,8 @@
 class WorkoutTemplate < ActiveRecord::Base
-  attr_accessible :athlete_id, :name, :athlete, :goals
-  has_one :athlete
+  belongs_to :athlete
   has_many :goals
+
+  attr_accessible :name, :athlete, :goals_attributes
+
+  accepts_nested_attributes_for :goals
 end

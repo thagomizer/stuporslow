@@ -26,8 +26,8 @@ class WorkoutsController < ApplicationController
   # GET /workouts/new
   # GET /workouts/new.json
   def new
-    @workout = Workout.new
-    @workout.lifts = []
+    @workout         = Workout.new
+    @workout.lifts   = []
     @workout.athlete = current_athlete
 
     6.times do
