@@ -7,9 +7,9 @@ class WorkoutTemplatesControllerTest < ActionController::TestCase
     @workout_template = WorkoutTemplate.create!(:name    => "My Template",
                                                 :athlete => athlete)
 
-    Goal.create!(:workout_template => @workout_template,
-                 :exercise         => create_exercise,
-                 :time             => 90)
+    Goal.create!( :workout_template => @workout_template,
+                  :exercise         => create_exercise,
+                  :time             => 90)
   end
 
   def test_index
@@ -20,47 +20,93 @@ class WorkoutTemplatesControllerTest < ActionController::TestCase
 
   def test_new
     get :new
+    assert_response :success
 
     template = assigns(:workout_template)
     refute_nil template
-    assert_equal 1, template.goals.count
+    assert_equal 6, template.goals.length
 
     assert_select "#workout_template_name"
 
-    # Should not have field for athlete
-    # Should have table of up to
-
-    assert_response :success
+    0.upto(5).each do |x|
+      assert_select "#workout_template_goals_attributes_#{x}_exercise_id"
+      assert_select "#workout_template_goals_attributes_#{x}_time"
+    end
   end
 
-  # def test_create
-  #   assert_difference('WorkoutTemplate.count') do
-  #     post :create, workout_template: {  }
-  #   end
+  def test_create
+    assert_difference('WorkoutTemplate.count') do
+      assert_difference('Goal.count', 2) do
+        post :create,  "workout_template" => {
+          "name" => "Template Name",
+          "goals_attributes" => {
+            "0" => {
+              "exercise_id" => Exercise.first.id.to_s,
+              "time"        => "120"},
+            "1" => {
+              "exercise_id" => Exercise.last.id.to_s,
+              "time"        => "90"}}}
+      end
+    end
 
-  #   assert_redirected_to workout_template_path(assigns(:workout_template))
-  # end
+    template = WorkoutTemplate.last
 
-  # def test_show
-  #   get :show, id: @workout_template
-  #   assert_response :success
-  # end
+    assert_redirected_to workout_template_path(assigns(:workout_template))
+  end
 
-  # def test_edit
-  #   get :edit, id: @workout_template
-  #   assert_response :success
-  # end
+  def test_create_no_time
+    assert_difference('WorkoutTemplate.count') do
+      assert_difference('Goal.count', 1) do
+        post :create,  "workout_template" => {
+          "name" => "Template Name",
+          "goals_attributes" => {
+            "0" => {
+              "exercise_id" => Exercise.first.id.to_s,
+              "time"        => "120"},
+            "1" => {
+              "exercise_id" => Exercise.last.id.to_s,
+              "time"        => ""}}}
+      end
+    end
+
+    assert_redirected_to workout_template_path(assigns(:workout_template))
+  end
+
+  def test_show
+    get :show, id: @workout_template
+    assert_response :success
+
+    goal = @workout_template.goals.first
+
+    assert_select 'tr', @workout_template.goals.count + 1
+    assert_select 'td.goal-exercise-name', :text => goal.exercise.name
+    assert_select 'td.goal-time', :text => goal.time
+  end
+
+  def test_edit
+    get :edit, id: @workout_template
+    assert_response :success
+
+    assert_select '#workout_template_name', :text => @workout_template.name
+
+    assert_select "div.goals" do |div|
+pp div
+      @workout_template.goals.each do |goal|
+
+      end
+    end
+  end
 
   # def test_update
   #   put :update, id: @workout_template, workout_template: {  }
   #   assert_redirected_to workout_template_path(assigns(:workout_template))
   # end
 
-  # def test_destroy
-  #   assert_difference('WorkoutTemplate.count', -1) do
-  #     delete :destroy, id: @workout_template
-  #   end
+  def test_destroy
+    assert_difference('WorkoutTemplate.count', -1) do
+      delete :destroy, id: @workout_template
+    end
 
-  #   assert_redirected_to workout_templates_path
-  # end
+    assert_redirected_to workout_templates_path
+  end
 end

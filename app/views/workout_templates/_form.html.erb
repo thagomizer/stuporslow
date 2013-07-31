@@ -15,6 +15,18 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
+
+  <div class="goals">
+    <%= f.fields_for :goals do |goal_form| -%>
+      <div class="field goal-row">
+        <%= goal_form.label :exercise %>
+        <%= goal_form.select(:exercise_id, Exercise.order(:name).collect {|e| [ e.name, e.id ] }) %>
+        <%= goal_form.label :time %>
+        <%= goal_form.number_field :time %>
+      </div>
+    <% end %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

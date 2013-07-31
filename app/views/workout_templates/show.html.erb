@@ -5,10 +5,18 @@
   <%= @workout_template.name %>
 </p>
 
-<p>
-  <b>Athlete:</b>
-  <%= @workout_template.athlete_id %>
-</p>
+<table class="goals">
+  <tr>
+    <th>Exercise</th>
+    <th>Goal Time (secs)</th>
+  </tr>
+  <% @workout_template.goals.each do |goal| %>
+    <tr>  
+      <td class="goal-exercise-name"><%= goal.exercise.name %></td>
+      <td class="goal-time"><%= goal.time %></td>
+    </tr>
+  <% end %>
+</table>
 
 
 <%= link_to 'Edit', edit_workout_template_path(@workout_template) %> |

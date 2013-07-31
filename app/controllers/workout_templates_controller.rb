@@ -14,7 +14,7 @@ class WorkoutTemplatesController < ApplicationController
     @workout_template.athlete = current_athlete
 
     6.times do
-      @workout.goal << Goal.new(:workout_template => @workout_template)
+      @workout_template.goals << Goal.new(:workout_template => @workout_template)
     end
 
     respond_to do |format|
@@ -23,33 +23,36 @@ class WorkoutTemplatesController < ApplicationController
     end
   end
 
-  # def show
-  #   @workout_template = WorkoutTemplate.find(params[:id])
+  def create
+    @workout_template = WorkoutTemplate.new(params[:workout_template])
 
-  #   respond_to do |format|
-  #     format.html # show.html.erb
-  #     format.json { render json: @workout_template }
-  #   end
-  # end
+    @workout_template.goals.delete_if do |g|
+      g.time.blank?
+    end
 
+    respond_to do |format|
+      if @workout_template.save
+        format.html { redirect_to @workout_template, notice: 'Workout template was successfully created.' }
+        format.json { render json: @workout_template, status: :created, location: @workout_template }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @workout_template.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
-  # def edit
-  #   @workout_template = WorkoutTemplate.find(params[:id])
-  # end
+  def show
+    @workout_template = WorkoutTemplate.find(params[:id])
 
-  # def create
-  #   @workout_template = WorkoutTemplate.new(params[:workout_template])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @workout_template }
+    end
+  end
 
-  #   respond_to do |format|
-  #     if @workout_template.save
-  #       format.html { redirect_to @workout_template, notice: 'Workout template was successfully created.' }
-  #       format.json { render json: @workout_template, status: :created, location: @workout_template }
-  #     else
-  #       format.html { render action: "new" }
-  #       format.json { render json: @workout_template.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def edit
+    @workout_template = WorkoutTemplate.find(params[:id])
+  end
 
   # # PUT /workout_templates/1
   # # PUT /workout_templates/1.json
@@ -67,15 +70,15 @@ class WorkoutTemplatesController < ApplicationController
   #   end
   # end
 
-  # # DELETE /workout_templates/1
-  # # DELETE /workout_templates/1.json
-  # def destroy
-  #   @workout_template = WorkoutTemplate.find(params[:id])
-  #   @workout_template.destroy
+  # DELETE /workout_templates/1
+  # DELETE /workout_templates/1.json
+  def destroy
+    @workout_template = WorkoutTemplate.find(params[:id])
+    @workout_template.destroy
 
-  #   respond_to do |format|
-  #     format.html { redirect_to workout_templates_url }
-  #     format.json { head :no_content }
-  #   end
-  # end
+    respond_to do |format|
+      format.html { redirect_to workout_templates_url }
+      format.json { head :no_content }
+    end
+  end
 end
