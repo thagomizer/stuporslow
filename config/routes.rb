@@ -1,7 +1,7 @@
 StuporSlow::Application.routes.draw do
-  root :to => 'workouts#index'
-
   devise_for :athletes, :path => ''
+
+  root :to => 'workouts#index'
 
   resources :workouts
   resources :exercises
