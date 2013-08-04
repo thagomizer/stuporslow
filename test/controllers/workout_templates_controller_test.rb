@@ -53,6 +53,9 @@ class WorkoutTemplatesControllerTest < ActionController::TestCase
 
     template = WorkoutTemplate.last
 
+    assert_equal 2, template.goals.count
+    assert_equal @athlete, template.athlete
+
     assert_redirected_to workout_template_path(assigns(:workout_template))
   end
 
@@ -106,12 +109,14 @@ class WorkoutTemplatesControllerTest < ActionController::TestCase
               "time"        => "120"},
             "1" => {
               "exercise_id" => Exercise.last.id.to_s,
-              "time"        => ""}}}
+              "time"        => "50"}}}
 
     assert_redirected_to workout_template_path(assigns(:workout_template))
 
     template = assigns(:workout_template)
 
+# TODO
+#    assert_equal 2, template.goals.count
   end
 
   def test_destroy

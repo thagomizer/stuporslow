@@ -32,6 +32,8 @@ class WorkoutTemplatesController < ApplicationController
       g.time.blank?
     end
 
+    @workout_template.athlete = current_athlete
+
     respond_to do |format|
       if @workout_template.save
         format.html { redirect_to @workout_template, notice: 'Workout template was successfully created.' }
