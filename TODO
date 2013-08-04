@@ -1,4 +1,5 @@
-Finish workout_template CRUD
+Figure out how to do update_attributes with accepts_nested_attributes for
+Ensure workout_template athlete is set to current_athlete
 Add link to create new workout_template
 Add link to create new workout from template and hook up
 
