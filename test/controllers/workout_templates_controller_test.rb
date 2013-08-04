@@ -3,13 +3,15 @@ require "test_helper"
 class WorkoutTemplatesControllerTest < ActionController::TestCase
 
   def setup
-    athlete = create_athlete
+    @athlete = create_athlete
     @workout_template = WorkoutTemplate.create!(:name    => "My Template",
-                                                :athlete => athlete)
+                                                :athlete => @athlete)
 
     Goal.create!( :workout_template => @workout_template,
                   :exercise         => create_exercise,
                   :time             => 90)
+
+    sign_in @athlete
   end
 
   def test_index

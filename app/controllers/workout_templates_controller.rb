@@ -1,4 +1,6 @@
 class WorkoutTemplatesController < ApplicationController
+  before_filter :authenticate_athlete!
+
   def index
     @workout_templates = WorkoutTemplate.all
 

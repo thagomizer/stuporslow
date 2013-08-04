@@ -41,6 +41,14 @@ class ActiveSupport::TestCase
                   :time     => 100)
   end
 
+  def create_workout_template
+    wt = WorkoutTemplate.create!(:name    => "Test Workout Template",
+                                 :athlete => create_athlete)
+    Goal.create!(:exercise         => create_exercise,
+                 :time             => 120,
+                 :workout_template => wt)
+  end
+
   def sign_in_fred
     fred = create_athlete
     fred.persisted?
