@@ -54,21 +54,21 @@ class WorkoutTemplatesController < ApplicationController
     @workout_template = WorkoutTemplate.find(params[:id])
   end
 
-  # # PUT /workout_templates/1
-  # # PUT /workout_templates/1.json
-  # def update
-  #   @workout_template = WorkoutTemplate.find(params[:id])
+  # PUT /workout_templates/1
+  # PUT /workout_templates/1.json
+  def update
+    @workout_template = WorkoutTemplate.find(params[:id])
 
-  #   respond_to do |format|
-  #     if @workout_template.update_attributes(params[:workout_template])
-  #       format.html { redirect_to @workout_template, notice: 'Workout template was successfully updated.' }
-  #       format.json { head :no_content }
-  #     else
-  #       format.html { render action: "edit" }
-  #       format.json { render json: @workout_template.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+    respond_to do |format|
+      if @workout_template.update_attributes(params[:workout_template])
+        format.html { redirect_to @workout_template, notice: 'Workout template was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @workout_template.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # DELETE /workout_templates/1
   # DELETE /workout_templates/1.json

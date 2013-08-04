@@ -87,20 +87,30 @@ class WorkoutTemplatesControllerTest < ActionController::TestCase
     get :edit, id: @workout_template
     assert_response :success
 
-    assert_select '#workout_template_name', :text => @workout_template.name
+    assert_select '#workout_template_name', :value => @workout_template.name
 
-    assert_select "div.goals" do |div|
-pp div
-      @workout_template.goals.each do |goal|
-
-      end
+    @workout_template.goals.each do |goal|
+      assert_match /#{goal.exercise.name}/, response.body
+      assert_match /#{goal.time}/, response.body
     end
   end
 
-  # def test_update
-  #   put :update, id: @workout_template, workout_template: {  }
-  #   assert_redirected_to workout_template_path(assigns(:workout_template))
-  # end
+  def test_update
+    put :update, id: @workout_template, "workout_template" => {
+          "name" => "Template Name",
+          "goals_attributes" => {
+            "0" => {
+              "exercise_id" => Exercise.first.id.to_s,
+              "time"        => "120"},
+            "1" => {
+              "exercise_id" => Exercise.last.id.to_s,
+              "time"        => ""}}}
+
+    assert_redirected_to workout_template_path(assigns(:workout_template))
+
+    template = assigns(:workout_template)
+
+  end
 
   def test_destroy
     assert_difference('WorkoutTemplate.count', -1) do
