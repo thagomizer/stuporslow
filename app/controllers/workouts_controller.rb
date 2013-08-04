@@ -5,6 +5,7 @@ class WorkoutsController < ApplicationController
   # GET /workouts.json
   def index
     @workouts = Workout.all
+    @templates = WorkoutTemplate.where(:athlete_id => current_athlete.id)
 
     respond_to do |format|
       format.html # index.html.erb

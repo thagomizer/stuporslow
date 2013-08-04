@@ -21,5 +21,9 @@
 </table>
 
 <br />
+<% @templates.each do |wt| %>
+  <%= link_to "New Workout From #{wt.name}", new_workout_path %>
+<% end %>
+
 
 <%= link_to 'New Workout', new_workout_path %>

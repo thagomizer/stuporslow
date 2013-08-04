@@ -6,6 +6,7 @@ class WorkoutsControllerTest < ActionController::TestCase
     @fred     = create_athlete
     @exercise = create_exercise
     @workout  = create_workout
+    @workout_template = create_workout_template
     create_lift(@workout)
 
     sign_in @fred
@@ -20,6 +21,8 @@ class WorkoutsControllerTest < ActionController::TestCase
     assert_select 'tr', 2
     assert_select 'td', :html => "#{@workout.date.strftime('%b %-d %Y')}"
     assert_select 'td', :html => "#{@workout.notes}"
+
+    assert_match "New From Test Workout Template", response.body
   end
 
   # show
