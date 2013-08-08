@@ -114,9 +114,6 @@ class WorkoutTemplatesControllerTest < ActionController::TestCase
     assert_redirected_to workout_template_path(assigns(:workout_template))
 
     template = assigns(:workout_template)
-
-# TODO
-#    assert_equal 2, template.goals.count
   end
 
   def test_destroy

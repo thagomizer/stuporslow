@@ -1,6 +1,7 @@
 class Workout < ActiveRecord::Base
   belongs_to :athlete
   has_many :lifts
+  before_save :remove_empty_lifts
 
   attr_accessible :athlete, :date, :notes, :lifts_attributes
 
@@ -24,5 +25,9 @@ class Workout < ActiveRecord::Base
       workout.lifts << Lift.new(:workout => @workout)
     end
     workout
+  end
+
+  def remove_empty_lifts
+    self.lifts.delete_if { |lift| lift.weight.nil? }
   end
 end

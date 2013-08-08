@@ -55,4 +55,16 @@ class WorkoutTest < ActiveSupport::TestCase
 
     assert_equal 6, workout.lifts.length
   end
+
+  def test_do_not_save_lifts_with_no_time
+    workout = Workout.new(:date => Time.now)
+    workout.lifts << Lift.new(:exercise => Exercise.first,
+                              :weight => 300,
+                              :time => 120)
+    workout.lifts << Lift.new(:exercise => Exercise.first)
+
+    assert workout.save
+
+    assert_equal 1, workout.lifts.length
+  end
 end
