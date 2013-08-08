@@ -4,7 +4,7 @@ class WorkoutsController < ApplicationController
   # GET /workouts
   # GET /workouts.json
   def index
-    @workouts = Workout.where(:athlete_id => current_athlete.id)
+    @workouts = Workout.where(:athlete_id => current_athlete.id).order(:date)
     @templates = WorkoutTemplate.where(:athlete_id => current_athlete.id)
 
     respond_to do |format|
