@@ -50,6 +50,7 @@ class ActiveSupport::TestCase
     Goal.create!(:exercise         => create_exercise,
                  :time             => 120,
                  :workout_template => wt)
+    wt.reload
     return wt
   end
 

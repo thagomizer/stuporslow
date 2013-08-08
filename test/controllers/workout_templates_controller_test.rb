@@ -10,7 +10,7 @@ class WorkoutTemplatesControllerTest < ActionController::TestCase
     Goal.create!( :workout_template => @workout_template,
                   :exercise         => create_exercise,
                   :time             => 90)
-
+    @workout_template.reload
     sign_in @athlete
   end
 

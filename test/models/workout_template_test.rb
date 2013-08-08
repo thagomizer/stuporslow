@@ -25,4 +25,16 @@ class WorkoutTemplateTest < ActiveSupport::TestCase
     assert_equal goal1, template.goals[0]
     assert_equal goal2, template.goals[1]
   end
+
+  def test_do_not_save_goals_with_no_time
+    template = WorkoutTemplate.new(:name => "Testing")
+    template.goals << Goal.new(:exercise => Exercise.first)
+    template.goals << Goal.new(:exercise => Exercise.first,
+                               :time => 120)
+
+    assert template.save
+
+    assert_equal 1, template.goals.length
+  end
+
 end
