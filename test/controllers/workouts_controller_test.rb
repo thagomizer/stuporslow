@@ -65,6 +65,16 @@ class WorkoutsControllerTest < ActionController::TestCase
     end
   end
 
+  def test_new_from_template
+    get :new, :template_id => @workout_template.id
+    assert_response :success
+
+    workout = assigns(:workout)
+    refute_nil workout
+
+    assert_equal @workout_template.goals.length, workout.lifts.length
+  end
+
   # edit TODO
   def test_edit
     get :edit, id: @workout

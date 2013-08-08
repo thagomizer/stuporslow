@@ -22,7 +22,7 @@
 
 <br />
 <% @templates.each do |wt| %>
-  <%= link_to "New Workout From #{wt.name}", new_workout_path %>
+  <%= link_to "New Workout From #{wt.name}", new_workout_path(:template_id => wt.id)  %>
   <br/>
 <% end %>
 

@@ -47,6 +47,7 @@ class ActiveSupport::TestCase
     Goal.create!(:exercise         => create_exercise,
                  :time             => 120,
                  :workout_template => wt)
+    return wt
   end
 
   def sign_in_fred

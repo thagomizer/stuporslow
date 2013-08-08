@@ -36,4 +36,23 @@ class WorkoutTest < ActiveSupport::TestCase
     assert_equal 100, l.time
     assert_equal 50, l.weight
   end
+
+  def test_new_from_template
+    workout_template = create_workout_template
+
+    workout = Workout.new_from_template(workout_template)
+    assert_equal 1, workout.lifts.length
+
+    goal = workout_template.goals.first
+    lift = workout.lifts.first
+
+    assert_equal goal.exercise, lift.exercise
+    assert_equal goal.time, lift.time
+  end
+
+  def test_default_workout
+    workout = Workout.default_workout
+
+    assert_equal 6, workout.lifts.length
+  end
 end

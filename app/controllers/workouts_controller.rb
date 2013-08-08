@@ -27,14 +27,13 @@ class WorkoutsController < ApplicationController
   # GET /workouts/new
   # GET /workouts/new.json
   def new
-    @workout         = Workout.new
-    @workout.lifts   = []
-    @workout.athlete = current_athlete
-
-    6.times do
-      @workout.lifts << Lift.new(:workout => @workout)
+    if params[:template_id]
+      @workout_template = WorkoutTemplate.find(params[:template_id])
+      @workout = Workout.new_from_template(@workout_template)
+    else
+      @workout = Workout.default_workout
     end
-
+    @workout.athlete = current_athlete
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @workout }
