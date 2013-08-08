@@ -2,7 +2,7 @@ class WorkoutTemplatesController < ApplicationController
   before_filter :authenticate_athlete!
 
   def index
-    @workout_templates = WorkoutTemplate.all
+    @workout_templates = WorkoutTemplate.where(:athlete_id => current_athlete.id)
 
     respond_to do |format|
       format.html # index.html.erb
