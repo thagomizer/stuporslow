@@ -23,7 +23,9 @@
 <br />
 <% @templates.each do |wt| %>
   <%= link_to "New Workout From #{wt.name}", new_workout_path %>
+  <br/>
 <% end %>
 
-
 <%= link_to 'New Workout', new_workout_path %>
+<br />
+<%= link_to 'New Workout Template', new_workout_template_path %>
