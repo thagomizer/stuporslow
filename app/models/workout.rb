@@ -7,6 +7,8 @@ class Workout < ActiveRecord::Base
 
   accepts_nested_attributes_for :lifts
 
+  scope :for_athlete, lambda { |athlete| where(:athlete_id => athlete.id) if athlete }
+
   def self.new_from_template(workout_template = nil)
     workout         = Workout.new
     workout.lifts   = []
@@ -25,6 +27,17 @@ class Workout < ActiveRecord::Base
       workout.lifts << Lift.new(:workout => @workout)
     end
     workout
+  end
+
+  # TODO optimize this
+  def self.exercise_names_for_athlete(athlete)
+    workouts = Workout.for_athlete(athlete).includes(:lifts)
+
+    workouts.map(&:lifts).flatten.map { |l| l.exercise.name }.flatten.uniq
+  end
+
+  def self.dates_for_athlete(athlete)
+    Workout.for_athlete(athlete).select(:date)
   end
 
   def remove_empty_lifts

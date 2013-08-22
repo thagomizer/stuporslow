@@ -67,4 +67,25 @@ class WorkoutTest < ActiveSupport::TestCase
 
     assert_equal 1, workout.lifts.length
   end
+
+  def test_exercise_names_for_athlete
+    athlete = create_athlete
+
+    workout = Workout.new(:date => Time.now, :athlete => athlete)
+    workout.lifts << create_lift
+    workout.lifts << create_lift
+
+    assert_equal(workout.lifts.map { |l| l.exercise.name }.flatten.uniq,
+                 Workout.exercise_names_for_athlete(workout.athlete))
+  end
+
+  def test_dates_for_athlete
+    athlete = create_athlete
+
+    workout = Workout.new(:date => Time.now, :athlete => athlete)
+
+    Workout.dates_for_athlete(athlete).each do |date|
+      assert_in_delta Time.now, date
+    end
+  end
 end
