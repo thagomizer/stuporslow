@@ -26,8 +26,8 @@ class ActiveSupport::TestCase
     workout
   end
 
-  def create_exercise
-    Exercise.find_or_create_by_name(:name => "Compound Row")
+  def create_exercise(exercise_name = "Compound Row")
+    Exercise.find_or_create_by_name(:name => exercise_name)
   end
 
   def create_goal(exercise = nil, time = 90)

@@ -45,6 +45,21 @@ class Workout < ActiveRecord::Base
   end
 
   def self.last_n_for_athlete(n, athlete)
-    Workout.for_athlete(athlete).order("date desc").limit(1)
+    Workout.for_athlete(athlete).order("date desc").limit(n)
+  end
+
+  # TODO optimize this
+  def self.for_athlete_with_exercise_type(athlete, exercise_name)
+    workouts = Workout.for_athlete(athlete).includes(:lifts)
+
+    workouts.find_all { |w| w.lifts.any? { |e| e.exercise.name == exercise_name}}
+  end
+
+  # TODO optimize this (should be able get just the lift fields)
+  def self.all_lifts_of_type_for_athlete(exercise_name, athlete)
+    exercise = Exercise.find_by_name(exercise_name)
+    workouts = Workout.for_athlete(athlete).includes(:lifts)
+    lifts = workouts.map { |w| w.lifts }.flatten
+    lifts.select { |l| l.exercise == exercise }
   end
 end

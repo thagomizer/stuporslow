@@ -105,4 +105,38 @@ class WorkoutTest < ActiveSupport::TestCase
     assert_equal 1, found_workouts.length
     assert_equal created_workouts.last, found_workouts.first
   end
+
+  def test_for_athlete_with_exercise_type
+    athlete = create_athlete
+
+    leg_press_workout = Workout.new(:date => Time.now, :athlete => athlete)
+    create_lift(leg_press_workout, create_exercise("Leg Press"))
+    leg_press_workout.save!
+
+    pull_down_workout = Workout.new(:date => 2.days.ago, :athlete => athlete)
+    create_lift(pull_down_workout, create_exercise("Pull Down"))
+    pull_down_workout.save!
+
+    found_workouts = Workout.for_athlete_with_exercise_type(athlete, "Pull Down")
+    assert_equal 1, found_workouts.length
+    assert_equal pull_down_workout, found_workouts[0]
+  end
+
+  def test_all_lifts_of_type_for_athlete
+    athlete = create_athlete
+
+    leg_press_workout = Workout.new(:date => Time.now, :athlete => athlete)
+    create_lift(leg_press_workout, create_exercise("Leg Press"))
+    leg_press_workout.save!
+
+    pull_down_workout = Workout.new(:date => 2.days.ago, :athlete => athlete)
+    create_lift(pull_down_workout, create_exercise("Pull Down"))
+    pull_down_workout.save!
+
+    found_lifts = Workout.all_lifts_of_type_for_athlete("Leg Press", athlete)
+
+    assert_equal 1, found_lifts.length
+    assert_equal Lift, found_lifts[0].class
+    assert_equal "Leg Press", found_lifts[0].exercise.name
+  end
 end
