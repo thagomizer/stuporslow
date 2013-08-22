@@ -88,4 +88,21 @@ class WorkoutTest < ActiveSupport::TestCase
       assert_in_delta Time.now, date
     end
   end
+
+  def test_last_n_for_athlete
+    athlete = create_athlete("LastN", "Test")
+
+    created_workouts = []
+    2.times do
+      workout = Workout.new(:date => Time.now, :athlete => athlete)
+      workout.lifts << create_lift
+      workout.save
+      created_workouts << workout
+    end
+
+    found_workouts = Workout.last_n_for_athlete(1, athlete)
+
+    assert_equal 1, found_workouts.length
+    assert_equal created_workouts.last, found_workouts.first
+  end
 end

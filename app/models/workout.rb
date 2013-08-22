@@ -29,6 +29,10 @@ class Workout < ActiveRecord::Base
     workout
   end
 
+  def remove_empty_lifts
+    self.lifts.delete_if { |lift| lift.weight.nil? }
+  end
+
   # TODO optimize this
   def self.exercise_names_for_athlete(athlete)
     workouts = Workout.for_athlete(athlete).includes(:lifts)
@@ -40,7 +44,7 @@ class Workout < ActiveRecord::Base
     Workout.for_athlete(athlete).select(:date)
   end
 
-  def remove_empty_lifts
-    self.lifts.delete_if { |lift| lift.weight.nil? }
+  def self.last_n_for_athlete(n, athlete)
+    Workout.for_athlete(athlete).order("date desc").limit(1)
   end
 end
