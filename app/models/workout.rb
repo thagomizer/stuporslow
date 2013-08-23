@@ -49,10 +49,10 @@ class Workout < ActiveRecord::Base
   end
 
   # TODO optimize this
-  def self.for_athlete_with_exercise_type(athlete, exercise_name)
+  def self.all_workouts_with_exercise_for_athlete(exercise, athlete)
     workouts = Workout.for_athlete(athlete).includes(:lifts)
 
-    workouts.find_all { |w| w.lifts.any? { |e| e.exercise.name == exercise_name}}
+    workouts.find_all { |w| w.lifts.any? { |e| e.exercise == exercise }}
   end
 
   # TODO optimize this (should be able get just the lift fields)

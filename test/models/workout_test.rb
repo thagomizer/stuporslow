@@ -115,18 +115,21 @@ class WorkoutTest < ActiveSupport::TestCase
     assert_equal created_workouts.last, found_workouts.first
   end
 
-  def test_for_athlete_with_exercise_type
-    athlete = create_athlete
+  def test_all_workouts_with_exercise_for_athlete
+    athlete   = create_athlete
+    leg_press = create_exercise("Leg Press")
+    pull_down = create_exercise("Pull Down")
 
     leg_press_workout = Workout.new(:date => Time.now, :athlete => athlete)
-    create_lift(leg_press_workout, create_exercise("Leg Press"))
+    create_lift(leg_press_workout, leg_press)
     leg_press_workout.save!
 
     pull_down_workout = Workout.new(:date => 2.days.ago, :athlete => athlete)
-    create_lift(pull_down_workout, create_exercise("Pull Down"))
+    create_lift(pull_down_workout, pull_down)
     pull_down_workout.save!
 
-    found_workouts = Workout.for_athlete_with_exercise_type(athlete, "Pull Down")
+    found_workouts = Workout.all_workouts_with_exercise_for_athlete(pull_down, athlete)
+
     assert_equal 1, found_workouts.length
     assert_equal pull_down_workout, found_workouts[0]
   end
