@@ -1,6 +1,6 @@
 class Workout < ActiveRecord::Base
   belongs_to :athlete
-  has_many :lifts, dependent: destroy
+  has_many :lifts, dependent: :destroy
   before_save :remove_empty_lifts
 
   attr_accessible :athlete, :date, :notes, :lifts_attributes
