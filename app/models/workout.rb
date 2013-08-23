@@ -41,7 +41,7 @@ class Workout < ActiveRecord::Base
   end
 
   def self.dates_for_athlete(athlete)
-    Workout.for_athlete(athlete).select(:date).order("date DESC")
+    Workout.for_athlete(athlete).select(:date).order("date DESC").map(&:date)
   end
 
   def self.last_n_for_athlete(n, athlete)
