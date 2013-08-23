@@ -1,4 +1,6 @@
 StuporSlow::Application.routes.draw do
+  get "visualize/graph"
+
   devise_for :athletes, :path => ''
 
   root :to => 'workouts#index'

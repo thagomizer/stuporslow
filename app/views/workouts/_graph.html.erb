@@ -1,0 +1,48 @@
+<head>
+  <title>All Workouts</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+
+  <script>
+    $(function() {
+      Highcharts.setOptions({
+        legend: { enabled : false, },
+        xAxis: { type: 'datetime' },
+        yAxis : [{// Primary yAxis
+          labels : {style : {color : '#6666ff'}, align : 'left', x : 0, y : -2},
+          title : {text : 'Weight', style : {color : '#6666ff'}}
+        }, {// Secondary yAxis
+          title : {text : 'Time', style : { color : '#33aa33' }},
+          labels : {align : 'right', x : 0, y : -2, style : { color : '#33aa33' }},
+          opposite : true
+        }],
+        plotOptions : {
+          column : { negativeColor: 'red', color : '#33aa33', },
+          line   : { color : '#6666ff', marker : { enabled: false }, connectNulls: true },
+        },
+      });
+    });
+  </script>
+
+  <style>
+    .chart { width: 500px; height: 300px; text-align: middle }
+  </style>
+
+<div id="container">
+  <h1>Workouts</h1>
+
+<!-- Gather the last 20 workouts   
+<!-- Gather all the exercises from their templates -->
+<!-- Exercises.each do -->
+  <!-- Gather all the lifts for that exercise 
+
+
+
+<% Workout.exercise_names_for_athlete(current_athlete) do |exercise_name| -%>
+<% name = exercise_name.gsub
+
+
+

@@ -1,0 +1,109 @@
+<head>
+  <title>All Workouts</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+
+  <script>
+    $(function() {
+      Highcharts.setOptions({
+        legend: { enabled : false, },
+        xAxis: { type: 'datetime' },
+        yAxis : [{// Primary yAxis
+          labels : {style : {color : '#6666ff'}, align : 'left', x : 0, y : -2},
+          title : {text : 'Weight', style : {color : '#6666ff'}}
+        }, {// Secondary yAxis
+          title : {text : 'Time', style : { color : '#33aa33' }},
+          labels : {align : 'right', x : 0, y : -2, style : { color : '#33aa33' }},
+          opposite : true
+        }],
+        plotOptions : {
+          column : { negativeColor: 'red', color : '#33aa33', },
+          line   : { color : '#6666ff', marker : { enabled: false }, connectNulls: true },
+        },
+      });
+    });
+  </script>
+
+  <style>
+    .chart { width: 500px; height: 300px; text-align: middle }
+  </style>
+
+<div id="container">
+  <h1>Workouts</h1>
+
+<% @exercise_data.each do |datum| -%>
+  <% div_id = datum.exercise.name.gsub(' ', '_') -%>
+  <p/>
+  <h3><%= datum.exercise.name -%></h3>
+  <div id=<%= div_id %> class="chart"></div>
+  <script>
+    $(function() {
+      var chart1 = new Highcharts.Chart({
+        chart  : { renderTo : '<%= div_id %>' },
+        title  : { text : '<%= datum.exercise.name %>' },
+
+        series : [
+          {
+            name : 'Time',
+            type : 'column',
+            yAxis : 1,
+            data : <%= JSON.dump(datum.dates_and_rel_times).delete('"') %>
+
+          },
+          {
+            name : 'Weight',
+            type : 'line',
+            data : <%= JSON.dump(datum.dates_and_weights).delete('"') %>
+          }
+        ]
+      });
+    });
+  </script>
+  <br/>
+  <table>
+    <tr>
+      <th>date</th>
+      <% @date_labels.last(@max).each do |date_label| -%>
+        <td>
+          <%= date_label %>
+        </td>
+      <% end -%>
+    </tr>
+    <tr>
+      <th>weight</th>
+      <% datum.weights.last(@max).each do |weight| -%>
+        <td>
+          <%= weight %>
+        </td>
+      <% end -%>
+    </tr>
+    <tr>
+      <th>time</th>
+      <% datum.raw_times.last(@max).each do |raw_time| -%>
+        <td>
+          <%= raw_time %>
+        </td>
+      <% end -%>
+    </tr>
+    <tr>
+      <th>target</th>
+      <td><%= datum.goal.time if datum.goal%></td>
+    </tr>    
+    <tr>
+      <th>averages</th>
+      <td colspan=5>
+        <%= "#{datum.overall_average}/#{datum.last_10_average}/#{datum.last_3_average}" -%>
+      </td>
+    </tr>
+
+  </table>
+<% end -%>
+  
+
+
+
+
+
