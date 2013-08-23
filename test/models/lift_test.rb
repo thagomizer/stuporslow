@@ -20,4 +20,23 @@ class LiftTest < ActiveSupport::TestCase
     assert_equal exercise, lift.exercise
     assert_equal workout, lift.workout
   end
+
+  def test_all_with_athlete_exercise
+    athlete = create_athlete
+    abs     = create_exercise("abs")
+    back    = create_exercise("back")
+
+    abs_workout = Workout.new(:date => Time.now, :athlete => athlete)
+    abs_lift    = create_lift(abs_workout, abs)
+    abs_workout.save!
+
+    back_workout = Workout.new(:date => Time.now, :athlete => athlete)
+    back_lift    = create_lift(back_workout, back)
+    back_workout.save!
+
+    found_lifts = Lift.all_with_athlete_exercise(athlete, abs)
+
+    assert_equal 1, found_lifts.length
+    assert_equal abs_lift, found_lifts[0]
+  end
 end
