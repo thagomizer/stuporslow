@@ -34,10 +34,10 @@ class Workout < ActiveRecord::Base
   end
 
   # TODO optimize this
-  def self.exercise_names_for_athlete(athlete)
+  def self.exercises_for_athlete(athlete)
     workouts = Workout.for_athlete(athlete).includes(:lifts)
 
-    workouts.map(&:lifts).flatten.map { |l| l.exercise.name }.flatten.uniq
+    workouts.map { |w| w.lifts.map { |l| l.exercise }}.flatten.uniq
   end
 
   def self.dates_for_athlete(athlete)
