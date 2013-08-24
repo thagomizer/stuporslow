@@ -7,6 +7,8 @@ class Array
 end
 
 class VisualizeController < ApplicationController
+  before_filter :authenticate_athlete!
+
   def graph
     @dates = Workout.dates_for_athlete(current_athlete)
     @date_labels = @dates.map { |d| d.strftime("%m/%d") }
