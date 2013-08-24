@@ -9,10 +9,6 @@ StuporSlow::Application.routes.draw do
   resources :exercises
   resources :workout_templates
 
-# See TODO
-  resources :athletes
-
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
