@@ -23,7 +23,7 @@ class VisualizeController < ApplicationController
       exercise_data.goal = goal
       exercise_data.dates = @dates
 
-      @dates.reverse.each do |date|
+      @dates.each do |date|
         lift = lifts.find { |l| l.workout.date == date }
 
         if lift

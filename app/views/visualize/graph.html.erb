@@ -66,6 +66,7 @@
   <table>
     <tr>
       <th>date</th>
+      <%= @date_labels.inspect -%>
       <% @date_labels.last(@max).each do |date_label| -%>
         <td>
           <%= date_label %>
