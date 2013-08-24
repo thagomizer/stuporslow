@@ -95,7 +95,11 @@
     <tr>
       <th>averages</th>
       <td colspan=5>
-        <%= "#{datum.overall_average}/#{datum.last_10_average}/#{datum.last_3_average}" -%>
+        <% styled_avg = style_avg(datum.overall_average, datum.goal.time) -%>
+        <% styled_avg_10 = style_avg(datum.last_10_average, datum.goal.time) -%>
+        <% styled_avg_3 = style_avg(datum.last_3_average, datum.goal.time) -%>
+        
+        <%= "#{styled_avg}/#{styled_avg_10}/#{styled_avg_3}".html_safe -%>
       </td>
     </tr>
 
