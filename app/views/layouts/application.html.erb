@@ -9,6 +9,7 @@
 <body>
   <% if athlete_signed_in? -%>
     <%= link_to 'Sign Out', destroy_athlete_session_path, :method => :delete -%>
+    <%= link_to 'Update Account', edit_athlete_registration_path -%>
   <% else -%>
     <%= link_to 'Sign In', new_athlete_session_path -%>
   <% end -%>
