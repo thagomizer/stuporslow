@@ -42,8 +42,8 @@ class VisualizeController < ApplicationController
 
       end
       exercise_data.overall_average = exercise_data.raw_times.avg
-      exercise_data.last_10_average = exercise_data.raw_times.last(10).avg
-      exercise_data.last_3_average  = exercise_data.raw_times.last(3).avg
+      exercise_data.last_10_average = exercise_data.raw_times.first(10).avg
+      exercise_data.last_3_average  = exercise_data.raw_times.first(3).avg
 
       @exercise_data << exercise_data
     end
