@@ -4,8 +4,9 @@ class WorkoutsController < ApplicationController
   # GET /workouts
   # GET /workouts.json
   def index
-    @workouts = Workout.where(:athlete_id => current_athlete.id).order("date DESC")
+    @workouts = Workout.for_athlete(current_athlete).order("date DESC").limit(11)
     @templates = WorkoutTemplate.where(:athlete_id => current_athlete.id)
+    @exercises = Workout.exercises_for_athlete(current_athlete)
 
     respond_to do |format|
       format.html # index.html.erb

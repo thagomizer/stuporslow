@@ -19,7 +19,7 @@ class WorkoutsControllerTest < ActionController::TestCase
     refute_nil assigns(:workouts)
 
     assert_select 'tr', 2
-    assert_select 'td', :html => "#{@workout.date.strftime('%b %-d %Y')}"
+    assert_select 'td', :html => "#{@workout.date.strftime('%m/%d')}"
     assert_select 'td', :html => "#{@workout.notes}"
 
     assert_match "New Workout From Test Workout Template", response.body

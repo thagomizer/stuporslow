@@ -1,23 +1,34 @@
 <h1>Listing workouts</h1>
 
-<table>
+
+<table border=1 cellspacing=0 >
   <tr>
     <th>Date</th>
+    <% @exercises.each do |exercise| -%>
+      <th colspan=2><%= exercise.name %></th>
+    <% end -%>
     <th>Notes</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan=3>Actions</th>
   </tr>
-
-<% @workouts.each do |workout| %>
-  <tr>
-    <td><%= workout.date.strftime("%b %-d %Y") %></td>
+  <% @workouts.each do |workout| -%>
+    <tr>
+      <td><%= workout.date.strftime("%m/%d") %></td>
+      <% @exercises.each do |exercise| -%>
+        <% l = workout.lifts.find { |l| l.exercise == exercise } -%>
+        <% if l -%>
+          <td><%= l.weight -%></td>
+          <td><%= l.time -%>s</td>
+        <% else -%>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        <% end -%>
+      <% end -%>
     <td><%= workout.notes %></td>
     <td><%= link_to 'Show', workout %></td>
     <td><%= link_to 'Edit', edit_workout_path(workout) %></td>
     <td><%= link_to 'Destroy', workout, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+    </tr>
+  <% end -%>
 </table>
 
 <br />
