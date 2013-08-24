@@ -67,7 +67,7 @@
     <tr>
       <th>date</th>
       <%= @date_labels.inspect -%>
-      <% @date_labels.last(@max).each do |date_label| -%>
+      <% @date_labels.first(@max).reverse.each do |date_label| -%>
         <td>
           <%= date_label %>
         </td>
@@ -75,7 +75,7 @@
     </tr>
     <tr>
       <th>weight</th>
-      <% datum.weights.last(@max).each do |weight| -%>
+      <% datum.weights.first(@max).reverse.each do |weight| -%>
         <td>
           <%= weight %>
         </td>
@@ -83,7 +83,7 @@
     </tr>
     <tr>
       <th>time</th>
-      <% datum.raw_times.last(@max).each do |raw_time| -%>
+      <% datum.raw_times.first(@max).reverse.each do |raw_time| -%>
         <td>
           <%= raw_time %>
         </td>
