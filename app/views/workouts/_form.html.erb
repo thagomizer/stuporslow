@@ -25,9 +25,9 @@
         <%= lift_form.label :exercise %>
         <%= lift_form.select(:exercise_id, Exercise.order(:name).collect {|e| [ e.name, e.id ] }) %>
         <%= lift_form.label :weight %>
-        <%= lift_form.number_field :weight %>
+        <%= lift_form.telephone_field :weight %>
         <%= lift_form.label :time %>
-        <%= lift_form.number_field :time %>
+        <%= lift_form.telephone_field :time %>
         <%= lift_form.label :notes %>
         <%= lift_form.text_field :notes %><br/>
       </div>
