@@ -50,6 +50,6 @@ class VisualizeController < ApplicationController
       @exercise_data << exercise_data
     end
 
-    @max = 11
+    @max = request.user_agent =~ /Mobile/ ? 5 : 11
   end
 end
