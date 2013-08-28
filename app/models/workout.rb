@@ -9,14 +9,22 @@ class Workout < ActiveRecord::Base
 
   scope :for_athlete, lambda { |athlete| where(:athlete_id => athlete.id) if athlete }
 
-  def self.new_from_template(workout_template = nil)
+  def self.new_from_template(workout_template = nil, athlete = nil)
     workout         = Workout.new
     workout.lifts   = []
 
     workout_template.goals.each do |goal|
-      workout.lifts << Lift.new(:workout => workout,
+      weight = 0
+      if athlete
+        lifts = Lift.all_with_athlete_exercise(athlete, goal.exercise)
+        lifts = lifts.sort { |a, b| b <=> a }.last(3).compact
+        weight = lifts.find { |x| x.weight }.weight unless lifts.empty?
+      end
+
+      workout.lifts << Lift.new(:workout  => workout,
                                 :exercise => goal.exercise,
-                                :time => goal.time)
+                                :weight   => weight,
+                                :time     => goal.time)
     end
     workout
   end

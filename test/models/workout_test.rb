@@ -37,10 +37,13 @@ class WorkoutTest < ActiveSupport::TestCase
     assert_equal 50, l.weight
   end
 
+  # TODO add verification of the weight setting
   def test_new_from_template
+    athlete = create_athlete
+
     workout_template = create_workout_template
 
-    workout = Workout.new_from_template(workout_template)
+    workout = Workout.new_from_template(workout_template, athlete)
     assert_equal 1, workout.lifts.length
 
     goal = workout_template.goals.first

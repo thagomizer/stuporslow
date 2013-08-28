@@ -30,7 +30,7 @@ class WorkoutsController < ApplicationController
   def new
     if params[:template_id]
       @workout_template = WorkoutTemplate.find(params[:template_id])
-      @workout = Workout.new_from_template(@workout_template)
+      @workout = Workout.new_from_template(@workout_template, current_athlete)
     else
       @workout = Workout.default_workout
     end
