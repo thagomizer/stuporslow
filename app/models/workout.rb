@@ -16,9 +16,11 @@ class Workout < ActiveRecord::Base
     workout_template.goals.each do |goal|
       weight = 0
       if athlete
-        lifts = Lift.all_with_athlete_exercise(athlete, goal.exercise)
-        lifts = lifts.sort { |a, b| b <=> a }.last(3).compact
-        weight = lifts.find { |x| x.weight }.weight unless lifts.empty?
+        lifts = athlete.lifts_for_exercise(goal.exercise)
+        unless lifts.empty?
+          last_lift = lifts.select { |l| l.weight }.max_by(&:date)
+          weight = last_lift.weight if last_lift
+        end
       end
 
       workout.lifts << Lift.new(:workout  => workout,
