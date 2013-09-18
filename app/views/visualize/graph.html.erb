@@ -23,6 +23,7 @@
         plotOptions : {
           column : { negativeColor: 'red', color : '#33aa33', },
           line   : { color : '#6666ff', marker : { enabled: false }, connectNulls: true },
+          series: {pointWidth: 20}
         },
       });
     });
@@ -45,7 +46,6 @@
       var chart1 = new Highcharts.Chart({
         chart  : { renderTo : '<%= div_id %>' },
         title  : { text : '<%= datum.exercise.name %>' },
-
         series : [
           {
             name : 'Time',
