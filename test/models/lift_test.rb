@@ -39,4 +39,10 @@ class LiftTest < ActiveSupport::TestCase
     assert_equal 1, found_lifts.length
     assert_equal abs_lift, found_lifts[0]
   end
+
+  def test_date
+    workout = create_workout
+
+    assert_equal workout.date, workout.lifts[0].date
+  end
 end
