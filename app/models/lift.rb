@@ -2,6 +2,7 @@ class Lift < ActiveRecord::Base
   belongs_to :exercise
   belongs_to :workout
 
+  delegate :date, :to => :workout
 
   attr_accessible :exercise, :exercise_id, :notes, :time, :weight, :workout
 
@@ -9,9 +10,5 @@ class Lift < ActiveRecord::Base
     lifts = Lift.where(:exercise_id => exercise.id).includes(:workout)
 
     lifts.find_all { |l| l.workout.athlete = athlete }
-  end
-
-  def date
-    self.workout.date
   end
 end
