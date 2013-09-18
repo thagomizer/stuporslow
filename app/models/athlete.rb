@@ -11,4 +11,8 @@ class Athlete < ActiveRecord::Base
   has_many :workout_templates
 
   attr_accessible :first_name, :last_name
+
+  def lifts_for_exercise(exercise)
+    Lift.joins(:workout).where('workouts.athlete_id' => self.id, :exercise_id => exercise.id)
+  end
 end
