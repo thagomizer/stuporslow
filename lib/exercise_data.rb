@@ -13,11 +13,11 @@ class ExerciseData
     :last_10_average, :last_3_average, :dates, :goal
 
   def dates_and_rel_times
-    @dates.map{ |d| "Date.UTC(#{d.year}, #{d.month}, #{d.day})" }.zip(rel_times).delete_if { |date, time| time.nil? }
+    @dates.map{ |d| "Date.UTC(#{d.year}, #{d.month-1}, #{d.day})" }.zip(rel_times).delete_if { |date, time| time.nil? }
   end
 
   def dates_and_weights
-    @dates.map{ |d| "Date.UTC(#{d.year}, #{d.month}, #{d.day})" }.zip(weights)
+    @dates.map{ |d| "Date.UTC(#{d.year}, #{d.month-1}, #{d.day})" }.zip(weights)
   end
 
   def initialize
