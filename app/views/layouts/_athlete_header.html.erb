@@ -1,0 +1,8 @@
+<ul class="nav nav-pills pull-right">
+  <% if athlete_signed_in? -%>
+    <li><%= link_to 'Sign Out', destroy_athlete_session_path, :method => :delete -%></li>
+    <li><%= link_to 'Update Account', edit_athlete_registration_path -%></li>
+  <% else -%>
+    <li><%= link_to 'Sign In', new_athlete_session_path -%></li>
+  <% end -%>
+</ul>

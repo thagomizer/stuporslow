@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>StuporSlow</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <% if athlete_signed_in? -%>
-    <%= link_to 'Sign Out', destroy_athlete_session_path, :method => :delete -%>
-    <%= link_to 'Update Account', edit_athlete_registration_path -%>
-  <% else -%>
-    <%= link_to 'Sign In', new_athlete_session_path -%>
-  <% end -%>
-
-<%= yield %>
-
-</body>
+  <head>
+    <title>StuporSlow</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <% if athlete_signed_in? -%>
+    <%= render 'layouts/nav' %>
+    <% end -%>
+    <%= yield %>
+    </div>
+  </body>
 </html>
